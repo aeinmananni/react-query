@@ -1,9 +1,7 @@
+import { Home } from "./home";
+
 const App = () => {
-  return (
-    <div>
-      <h1>Wellcom To Page React-query</h1>
-    </div>
-  );
+  return <Home />;
 };
 
 export default App;

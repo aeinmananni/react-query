@@ -1,10 +1,26 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import './index.css'
-import App from './App.tsx'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import "./index.css";
+import App from "./App.tsx";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+//ابتدا برای این که بخواهیم به کوئری کش متصل شویم باید کوئری کلاینت را ایجاد کنیم
 
-createRoot(document.getElementById('root')!).render(
+const client: QueryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchInterval: 50000, // میخواهیم بگوییم بعد از هر 5ثانیه دیتارو اپدیت کن
+      staleTime: 5000, // میخواهیم بگوییم تا 5 ثانیه دیتا بروز باشد
+    },
+  },
+});
+createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <App />
-  </StrictMode>,
-)
+    <QueryClientProvider client={client}>
+      <main className="flex flex-col overflow-hidden w-full h-screen border-4 border-purple-500">
+        <App />
+        <ReactQueryDevtools initialIsOpen={false} position="bottom" />
+      </main>
+    </QueryClientProvider>
+  </StrictMode>
+);
