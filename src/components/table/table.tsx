@@ -18,7 +18,6 @@ export default function Table<T extends Record<keyof T, string>>({
               {columnTbl[it as keyof T]}
             </th>
           ))}
-          <th className="border-2">ردیف</th>
         </tr>
       </thead>
       <tbody>
@@ -29,7 +28,6 @@ export default function Table<T extends Record<keyof T, string>>({
                 {it === 'operation' ? children?.({ action: item }) : item[it as keyof T]}
               </td>
             ))}
-            <td className="text-center border-2">{index + 1}</td>
           </tr>
         ))}
       </tbody>
