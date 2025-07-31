@@ -1,5 +1,5 @@
 import { RouteObject, createBrowserRouter } from 'react-router';
-import { Users, Home, User } from '../pages';
+import { Home, User, UsersList } from '../pages';
 const routes: RouteObject[] = [
   {
     path: '/',
@@ -7,7 +7,7 @@ const routes: RouteObject[] = [
     children: [
       {
         path: '/',
-        element: <Users />,
+        element: <UsersList />,
       },
       {
         path: 'user',

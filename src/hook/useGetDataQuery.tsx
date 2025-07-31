@@ -2,13 +2,20 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-export const useGetDataQuery = (v: { url: string; queryKey: any[] }) => {
-  const { isPending, data } = useQuery({
+export const useGetDataQuery = <T,>(v: { url: string; queryKey: any[] }) => {
+  // let totalCount = 0;
+  const { isPending, data } = useQuery<T>({
     queryKey: v.queryKey,
     queryFn: async ({ queryKey }) => {
+      console.log(queryKey);
       const result = await axios.get(v.url, { params: queryKey[1] });
       return result.data;
     },
+    // ! کارکنیم queryFn میتوانیم به این صورت روی خروجی
+    // select: (result: T) => {
+    //   totalCount = result?.count;
+    //   return result;
+    // },
     enabled: true,
   });
 

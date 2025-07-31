@@ -10,7 +10,7 @@ export default function Table<T extends Record<keyof T, string>>({
   children,
 }: TableProps<T>) {
   return (
-    <table className="w-1/2 h-max border">
+    <table className="w-full h-max border">
       <thead>
         <tr className="">
           {Object.keys(columnTbl).map((it, index) => (
