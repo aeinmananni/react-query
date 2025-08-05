@@ -2,6 +2,7 @@ import { MdSkipNext, MdSkipPrevious } from 'react-icons/md';
 import { Button, Input } from '../../custom';
 import { useStoreReactQuery } from '../../store';
 import { Users } from '../../components';
+// import { useQueryClient } from '@tanstack/react-query';
 
 const buttonClassName =
   'border w-1/12 py-2 rounded-lg shadow-md flex justify-center items-center active:scale-90 duration-300';
@@ -12,6 +13,7 @@ export default function UsersList() {
   const canGoNext = Number(params.offset) + Number(params.limit) >= Number(params.count);
   const canGoPrev = (params?.offset || 0) > 0;
 
+  // const queryClient = useQueryClient();
   return (
     <div className="flex flex-col gap-2 w-1/2 h-full">
       <Input
@@ -33,6 +35,16 @@ export default function UsersList() {
         >
           <MdSkipPrevious size={30} />
         </Button>
+
+        {/* 
+          میتوانیم جایی از این روش استفاده کنیم که درخواست زدیم پاسخی برنگشته 
+          و میخواهیم فتچ را متوفق کنیم
+        <Button
+          onClick={() => queryClient.cancelQueries({ queryKey: ['Users', { ...params }] })}
+          className="bg-red-500 text-white p-2 rounded-lg"
+        >
+          Calcle
+        </Button> */}
         <Button
           disabled={canGoNext}
           className={buttonClassName}
