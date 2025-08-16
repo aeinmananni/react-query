@@ -1,5 +1,5 @@
 import { RouteObject, createBrowserRouter } from 'react-router';
-import { Home, User, UsersList } from '../pages';
+import { Home, User, UsersList, InfiniteUser } from '../pages';
 const routes: RouteObject[] = [
   {
     path: '/',
@@ -8,6 +8,10 @@ const routes: RouteObject[] = [
       {
         path: '/',
         element: <UsersList />,
+      },
+      {
+        path: '/infinite-user',
+        element: <InfiniteUser />,
       },
       {
         path: 'user',

@@ -2,7 +2,6 @@ import { Table } from '..';
 import { UserType } from '../../models';
 import { FaRegTrashCan } from 'react-icons/fa6';
 import { FiEdit2 } from 'react-icons/fi';
-import { useGetDataQuery } from '../../hook/useGetDataQuery';
 import { useStoreReactQuery } from '../../store';
 import { useNavigate } from 'react-router';
 import { useEffect } from 'react';
@@ -15,24 +14,26 @@ const column: Record<keyof UserType, string> & { operation: string } = {
   userId: 'ردیف',
 };
 
-export default function UsersPage() {
-  const params = useStoreReactQuery(s => s.params);
-  const setParams = useStoreReactQuery(s => s.setParams);
-  const setUserId = useStoreReactQuery(s => s.setUserId);
-  const { data, isPending } = useGetDataQuery<{
-    users: Array<Record<keyof UserType, string>>;
-    count: number;
-  }>({
-    url: '/api/users/Get/All',
-    queryKey: ['Users', { ...params }],
-  });
+type UserPageProps = {
+  data:
+    | {
+        users: Record<keyof UserType, string>[] | undefined;
+        count: number;
+      }
+    | undefined;
+  isPending: boolean;
+};
 
+export default function UsersPage({ data, isPending }: UserPageProps) {
+  const setParams = useStoreReactQuery(s => s.setParams);
+  const params = useStoreReactQuery(s => s.params);
+  const setUserId = useStoreReactQuery(s => s.setUserId);
   const nav = useNavigate();
   useEffect(() => {
-    if (data) {
-      setParams(prev => ({ ...prev, count: data?.count }));
+    if (data && data.count !== params.count) {
+      setParams(prev => ({ ...prev, count: data.count }));
     }
-  }, [data, setParams]);
+  }, [data, params.count, setParams]);
 
   return (
     <div className="flex  flex-col  items-center h-full justify-center">
@@ -40,8 +41,8 @@ export default function UsersPage() {
         <div className="loading loading-bars loading-lg text-secondary" />
       ) : (
         <div className="flex flex-col gap-2 w-full h-full ">
-          {data && data.users.length > 0 ? (
-            <Table columnTbl={column} rowTble={data.users}>
+          {data && Number(data?.users?.length || 0) > 0 ? (
+            <Table columnTbl={column} rowTble={data?.users || []}>
               {({ action }) => (
                 <div className="flex items-center justify-center gap-2">
                   <FaRegTrashCan

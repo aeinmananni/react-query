@@ -7,7 +7,6 @@ export const useGetDataQuery = <T,>(v: { url: string; queryKey: any[] }) => {
   const { isPending, data } = useQuery<T>({
     queryKey: v.queryKey,
     queryFn: async ({ queryKey, signal }) => {
-      console.log(queryKey);
       const result = await axios.get(v.url, { params: queryKey[1], signal });
       return result.data;
     },

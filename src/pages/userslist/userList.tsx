@@ -2,6 +2,8 @@ import { MdSkipNext, MdSkipPrevious } from 'react-icons/md';
 import { Button, Input } from '../../custom';
 import { useStoreReactQuery } from '../../store';
 import { Users } from '../../components';
+import { useGetDataQuery } from '../../hook/useGetDataQuery';
+import { UserType } from '../../models';
 // import { useQueryClient } from '@tanstack/react-query';
 
 const buttonClassName =
@@ -14,6 +16,14 @@ export default function UsersList() {
   const canGoPrev = (params?.offset || 0) > 0;
 
   // const queryClient = useQueryClient();
+
+  const { data, isPending } = useGetDataQuery<{
+    users: Array<Record<keyof UserType, string>>;
+    count: number;
+  }>({
+    url: '/api/users/Get/All',
+    queryKey: ['Users', { ...params }],
+  });
   return (
     <div className="flex flex-col gap-2 w-1/2 h-full">
       <Input
@@ -23,7 +33,7 @@ export default function UsersList() {
         onChange={e => setParams(prev => ({ ...prev, search: e.target.value, offset: 0 }))}
       />
       <div className=" h-1/2 ">
-        <Users />
+        <Users data={data} isPending={isPending} />
       </div>
       <div className="flex w-full justify-between items-center">
         <Button
