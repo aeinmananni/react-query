@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="w-full h-full overflow-hidden flex flex-col">
       <Navbar />
-      <div className="w-full h-full border-4 border-yellow-500 flex flex-col  overflow-y-auto py-6 items-center">
+      <div className="w-full h-full border-4 border-yellow-500 flex flex-col  overflow-hidden py-6 items-center">
         <Outlet />
       </div>
     </div>
