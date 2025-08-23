@@ -40,11 +40,7 @@ const InfiniteUser = () => {
       />
       <Users data={data} isPending={isPending} />
 
-      {hasNextPage && (
-        <div ref={loadingTarget} className="py-4 text-center text-gray-500 ">
-          Loading..
-        </div>
-      )}
+      {hasNextPage && <div ref={loadingTarget} className="py-4 text-center text-gray-500 "></div>}
     </div>
   );
 };

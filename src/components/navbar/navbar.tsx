@@ -5,7 +5,6 @@ export default function Navbar() {
     <header className="p-3">
       <nav className="flex items-center gap-3">
         <NavLink to={'/'}>AllUsers</NavLink>
-        <NavLink to={'/user'}>user</NavLink>
         <NavLink to={'/infinite-user'}>infiniteUser</NavLink>
       </nav>
     </header>

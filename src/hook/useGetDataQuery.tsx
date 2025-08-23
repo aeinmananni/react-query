@@ -2,10 +2,12 @@
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 
-export const useGetDataQuery = <T,>(v: { url: string; queryKey: any[] }) => {
+export const useGetDataQuery = <T,>(v: { url: string; queryKey: any[]; initailData?: T }) => {
   // let totalCount = 0;
   const { isPending, data } = useQuery<T>({
     queryKey: v.queryKey,
+    initialData: v.initailData,
+    initialDataUpdatedAt: 0,
     queryFn: async ({ queryKey, signal }) => {
       const result = await axios.get(v.url, { params: queryKey[1], signal });
       return result.data;
