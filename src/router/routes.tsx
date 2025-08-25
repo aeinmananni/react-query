@@ -1,5 +1,5 @@
 import { RouteObject, createBrowserRouter } from 'react-router';
-import { Home, User, UsersList, InfiniteUser } from '../pages';
+import { Home, User, UsersList, InfiniteUser, Form } from '../pages';
 const routes: RouteObject[] = [
   {
     path: '/',
@@ -16,6 +16,10 @@ const routes: RouteObject[] = [
       {
         path: 'user',
         element: <User />,
+      },
+      {
+        path: 'form',
+        element: <Form />,
       },
     ],
   },

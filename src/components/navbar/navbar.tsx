@@ -6,6 +6,7 @@ export default function Navbar() {
       <nav className="flex items-center gap-3">
         <NavLink to={'/'}>AllUsers</NavLink>
         <NavLink to={'/infinite-user'}>infiniteUser</NavLink>
+        <NavLink to={'/form'}>add user</NavLink>
       </nav>
     </header>
   );
