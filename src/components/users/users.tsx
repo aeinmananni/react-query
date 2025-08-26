@@ -27,7 +27,7 @@ type UserPageProps = {
 export default function UsersPage({ data, isPending }: UserPageProps) {
   const setParams = useStoreReactQuery(s => s.setParams);
   const params = useStoreReactQuery(s => s.params);
-  const setUserId = useStoreReactQuery(s => s.setUserId);
+  const setUserInfo = useStoreReactQuery(s => s.setUserInfo);
   const nav = useNavigate();
   useEffect(() => {
     if (data && data.count !== params.count) {
@@ -52,8 +52,23 @@ export default function UsersPage({ data, isPending }: UserPageProps) {
                   />
                   <FiEdit2
                     onClick={() => {
-                      setUserId(+action.userId);
-                      nav('/user');
+                      setUserInfo(prev => {
+                        if (!prev) return prev;
+                        return {
+                          ...prev,
+                          ...Object.fromEntries(
+                            Object.entries(action).map(([k, v]) => {
+                              switch (k) {
+                                case 'id':
+                                  return [k, Number(v)];
+                                default:
+                                  return [k, v];
+                              }
+                            })
+                          ),
+                        };
+                      });
+                      nav('/form');
                     }}
                     className="text-blue-500"
                     cursor={'pointer'}

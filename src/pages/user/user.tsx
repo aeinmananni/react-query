@@ -2,11 +2,11 @@ import { useGetDataQuery } from '../../hook/useGetDataQuery';
 import { useStoreReactQuery } from '../../store';
 
 export default function User() {
-  const userId = useStoreReactQuery(s => s.userId);
+  const userInfo = useStoreReactQuery(s => s.userInfo);
   const { data } = useGetDataQuery({
     url: '/api/users/GET/single',
-    queryKey: ['Users', { userId }],
-    initailData: userId,
+    queryKey: ['Users', { userId: userInfo && userInfo.userId }],
+    initailData: userInfo && userInfo.userId,
   });
 
   return (

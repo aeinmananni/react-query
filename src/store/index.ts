@@ -1,26 +1,28 @@
 import { create } from 'zustand';
-import { ParamsType } from '../models';
+import { ParamsType, UserType } from '../models';
 type StoreType = {
-  userId: number | null;
   params: ParamsType;
   setParams: (v: ParamsType | ((c: ParamsType) => ParamsType)) => void;
-  setUserId: (v: number) => void;
+  userInfo: UserType | null;
+  setUserInfo: (v: UserType | ((c: UserType) => UserType) | null) => void;
 };
 
 export const useStoreReactQuery = create<StoreType>()(_set => ({
-  userId: null,
   params: {
     search: '',
     offset: 0,
     limit: 5,
     count: 0,
   },
+  userInfo: null,
   setParams: (v: ParamsType | ((c: ParamsType) => ParamsType)) => {
     _set(state => ({
       params: typeof v === 'function' ? v(state.params) : v,
     }));
   },
-  setUserId: (v: number) => {
-    _set({ userId: v });
+  setUserInfo: (v: UserType | null | ((c: UserType) => UserType)) => {
+    _set(state => ({
+      userInfo: typeof v === 'function' ? v(Object(state?.userInfo || null)) : v,
+    }));
   },
 }));
